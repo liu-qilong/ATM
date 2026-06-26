@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Project page for Articulating then Matching: Zero-Shot Shape Matching for Uncurated Data.">
+    <meta name="keywords" content="shape matching, dense correspondence, zero-shot learning, 3D vision, uncurated scans, point clouds, meshes, 3D Gaussian splatting">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Articulating then Matching">
+    <meta name="twitter:description" content="Zero-shot shape matching for uncurated data.">
+    <meta name="twitter:image" content="static/asset/teaser.png">
+    <title>Articulating then Matching</title>
+    <link rel="stylesheet" href="static/style.css">
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <p class="eyebrow">Zero-Shot Shape Matching</p>
+          <h1>Articulating then Matching</h1>
+          <p class="subtitle">Zero-Shot Shape Matching for Uncurated Data</p>
+          <p class="authors">
+            <strong>Qilong Liu</strong><sup>*</sup>,
+            <strong>Qinfeng Xiao</strong><sup>*</sup>,
+            <strong>Chenyuan Yi</strong>,
+            <strong>Zhang Liying</strong>,
+            <strong>Kit-lun Yick</strong>
+          </p>
+          <p class="affiliations">
+            <sup>1</sup>Hong Kong Polytechnic University, HK SAR<br>
+            <sup>2</sup>Artificial Intelligence in Design, HK SAR
+          </p>
+          <div class="actions" aria-label="Project links">
+            <button class="button" type="button" disabled>Paper <span>Coming Soon</span></button>
+            <button class="button" type="button" disabled>Code <span>Coming Soon</span></button>
+          </div>
+        </div>
+        <figure class="hero-figure">
+          <img src="static/asset/teaser.png" alt="Overview of ATM for zero-shot dense shape matching.">
+          <figcaption>
+            ATM grounds 2D vision foundation models with parametric shape priors, then refines dense correspondences across challenging 3D representations.
+          </figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="wrap">
+          <h2>Abstract</h2>
+          <p class="abstract">
+            Finding dense correspondences between 3D shapes is a fundamental yet unresolved challenge, especially in real-world environments. These environments present severe challenges, including the lack of time and sufficient samples for training, the prevalence of uncurated extreme-high resolution data with topological distortions, and the need to handle diverse 3D representations. We present ATM, a zero-shot framework that requires no correspondence-specific training and robustly addresses these issues through an articulate-then-match paradigm. Rather than relying on intrinsic geometric properties, ATM leverages pretrained vision foundation models and parametric shape priors to estimate parametric shape models from multi-view renderings, then grounds these estimations via multi-view geometric consistency. By mapping diverse inputs into a shared canonical parametric space, ATM establishes robust coarse correspondences that bypass topological noise, then refines them into precise dense mappings via spectral refinement.
+          </p>
+        </div>
+      </section>
+
+      <section class="alt">
+        <div class="wrap">
+          <h2>Highlights</h2>
+          <div class="grid">
+            <div class="point">
+              <h3>Zero-shot</h3>
+              <p>No correspondence-specific training is required. The method operates through test-time optimized parametric reconstructions.</p>
+            </div>
+            <div class="point">
+              <h3>Robust to uncurated scans</h3>
+              <p>ATM handles raw scans with severe topological noise and vertex counts up to 200k per shape.</p>
+            </div>
+            <div class="point">
+              <h3>Representation flexible</h3>
+              <p>The articulate-then-match strategy supports meshes, point clouds, and 3D Gaussian splatting inputs.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap figure-stack">
+          <div>
+            <h2>Method Overview</h2>
+            <figure class="result">
+              <img src="static/asset/framework.png" alt="ATM method framework.">
+              <figcaption>
+                ATM maps diverse 3D inputs into a shared parametric space before dense correspondence refinement.
+              </figcaption>
+            </figure>
+          </div>
+          <div>
+            <h2>Qualitative Results</h2>
+            <div class="figure-grid">
+              <figure class="result">
+                <img src="static/asset/qualitative_curated.png" alt="Texture transfer results on curated datasets.">
+                <figcaption>
+                  Texture transfer on curated public datasets, including TOPKIDS, SMAL, FAUST, and SCAPE.
+                </figcaption>
+              </figure>
+              <figure class="result">
+                <img src="static/asset/qualitative_raw.png" alt="Texture transfer results on raw FAUST scans.">
+                <figcaption>
+                  Texture transfer on original FAUST raw scans with increasing vertex counts.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap benchmark-stack">
+          <div class="section-heading">
+            <h2>Benchmark Comparisons</h2>
+            <p>Average geodesic error x100 is reported for all comparisons. Lower is better; OOM indicates out-of-memory failure.</p>
+          </div>
+
+          <div class="table-block">
+            <h3>Non-Isometric Shape Matching</h3>
+            <p class="table-note">SMAL evaluates animal shapes; TOPKIDS evaluates humans under strong non-isometric variation.</p>
+            <div class="table-wrap">
+              <table class="benchmark-table">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>SMAL</th>
+                    <th>TOPKIDS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="group"><td colspan="3">Axiomatic Methods</td></tr>
+                  <tr><td>ZoomOut</td><td>38.4</td><td>33.7</td></tr>
+                  <tr><td>Smooth Shells</td><td>36.1</td><td>11.8</td></tr>
+                  <tr><td>DiscreteOp</td><td>38.1</td><td>35.5</td></tr>
+                  <tr class="group"><td colspan="3">Functional Map Methods</td></tr>
+                  <tr><td>UnsupFMNet</td><td>-</td><td>38.5</td></tr>
+                  <tr><td>SURFMNet</td><td>-</td><td>48.6</td></tr>
+                  <tr><td>AttentiveFMaps</td><td>5.4</td><td>23.4</td></tr>
+                  <tr><td>URSSM</td><td>6.0</td><td>8.9</td></tr>
+                  <tr><td>Synchronous Diff.</td><td class="best">3.6</td><td class="second">5.4</td></tr>
+                  <tr class="group"><td colspan="3">Semantic Methods</td></tr>
+                  <tr><td>Diff3F</td><td>28.4</td><td>31.0</td></tr>
+                  <tr><td>DenseMatcher</td><td class="third">4.7</td><td class="third">6.2</td></tr>
+                  <tr class="group"><td colspan="3">Template-Based Methods</td></tr>
+                  <tr class="ours"><td>ATM (ours)</td><td class="second">3.8</td><td class="best">2.4</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="table-block">
+            <h3>Near-Isometric Shape Matching</h3>
+            <p class="table-note">Traditional remeshed human benchmarks where intrinsic spectral methods are typically strong.</p>
+            <div class="table-wrap">
+              <table class="benchmark-table">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>FAUST</th>
+                    <th>SCAPE</th>
+                    <th>SHREC19</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="group"><td colspan="4">Axiomatic Methods</td></tr>
+                  <tr><td>BCICP</td><td>6.4</td><td>11.0</td><td>8.0</td></tr>
+                  <tr><td>ZoomOut</td><td>6.1</td><td>7.5</td><td>7.8</td></tr>
+                  <tr><td>Smooth Shells</td><td>2.5</td><td>4.7</td><td>7.6</td></tr>
+                  <tr class="group"><td colspan="4">Functional Map Methods</td></tr>
+                  <tr><td>UnsupFMNet</td><td>4.8</td><td>9.6</td><td>11.1</td></tr>
+                  <tr><td>SURFMNet</td><td>2.5</td><td>6.0</td><td>4.8</td></tr>
+                  <tr><td>URSSM</td><td class="second">1.6</td><td class="second">1.9</td><td class="third">5.7</td></tr>
+                  <tr class="group"><td colspan="4">Semantic Methods</td></tr>
+                  <tr><td>Diff3F</td><td>20.7</td><td>22.1</td><td>26.3</td></tr>
+                  <tr><td>DenseMatcher</td><td class="second">1.6</td><td class="third">2.0</td><td class="best">3.1</td></tr>
+                  <tr class="group"><td colspan="4">Template-Based Methods</td></tr>
+                  <tr><td>3D-CODED</td><td>2.5</td><td>9.8</td><td>7.7</td></tr>
+                  <tr class="ours"><td>ATM (ours)</td><td class="best">1.3</td><td class="best">1.7</td><td class="best">3.1</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="table-block">
+            <h3>High-Resolution Raw Scans</h3>
+            <p class="table-note">Raw FAUST scans contain topological artifacts and reach roughly 160k-200k vertices.</p>
+            <div class="table-wrap">
+              <table class="benchmark-table">
+                <thead>
+                  <tr>
+                    <th>Resolution</th>
+                    <th>ATM (ours)</th>
+                    <th>ZoomOut</th>
+                    <th>URSSM</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>5k</td><td class="best">2.4</td><td>20.9</td><td>10.0</td></tr>
+                  <tr><td>10k</td><td class="best">2.1</td><td>20.6</td><td>23.1</td></tr>
+                  <tr><td>20k</td><td class="best">2.0</td><td>20.2</td><td>21.6</td></tr>
+                  <tr><td>40k</td><td class="best">2.0</td><td>20.6</td><td>OOM</td></tr>
+                  <tr><td>80k</td><td class="best">1.9</td><td>OOM</td><td>OOM</td></tr>
+                  <tr><td>120k</td><td class="best">1.9</td><td>OOM</td><td>OOM</td></tr>
+                  <tr class="ours"><td>Raw</td><td class="best">1.9</td><td>OOM</td><td>OOM</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="alt">
+        <div class="wrap">
+          <h2>Citation</h2>
+          <pre class="citation"><code>@misc{atm2027,
+  title  = {Articulating then Matching: Zero-Shot Shape Matching for Uncurated Data},
+  author = {Liu, Qilong and Xiao, Qinfeng and Yi, Chenyuan and Zhang, Liying and Yick, Kit-lun},
+  note   = {Coming soon}
+}</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>Code and paper links will be added when available.</p>
+      </div>
+    </footer>
+  </body>
+</html>
