@@ -77,10 +77,19 @@ h1 {
 }
 
 .authors,
-.affiliations {
-  margin: 18px 0 0;
+.affiliations,
+.author-notes {
   color: var(--muted);
   font-size: 0.98rem;
+}
+
+.authors,
+.affiliations {
+  margin: 18px 0 0;
+}
+
+.author-notes {
+  margin: 8px 0 0;
 }
 
 .authors strong {
@@ -110,6 +119,14 @@ h1 {
 .button span {
   color: var(--muted);
   font-weight: 600;
+}
+
+.actions a.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .hero-figure {
