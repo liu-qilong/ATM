@@ -378,12 +378,4 @@ footer {
     padding: 42px 0;
   }
 
-  .actions {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .button {
-    width: 100%;
-  }
 }
